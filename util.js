@@ -1,11 +1,13 @@
 const axios = require('axios')
 require('dotenv').config()
+const checklist = require('./checklist')
 
-function sendPWANotification () {
+function sendPWANotification (type) {
+  let checkFound = checklist.find(atual => atual.type === type)
   const notification = {
     app_id: process.env.APP_ID,
-    headings: { 'en': 'Title' },
-    contents: { 'en': 'Message tester' },
+    headings: { 'en': checkFound.title.toString() + ' - Projeto Arns' },
+    contents: { 'en': 'Know how remain safe' },
     include_player_ids: process.env.PUSHIDS.split(',')
   }
 
